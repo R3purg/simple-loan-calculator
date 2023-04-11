@@ -1,0 +1,6 @@
+@use '_variables' as var;
+
+@font-face {
+	font-family: "Roboto";
+	src: local("Roboto"), url(./fonts/Roboto-Regular.ttf) format("truetype");
+}
