@@ -21,6 +21,8 @@ export class LoansService extends ApiService {
 	 * @returns Observable<LoanInfo>
 	 */
 	calculateLoan(incomeInfo: IncomeInfoDto): Observable<LoanInfo> {
+		console.log('incomeInfo: ', incomeInfo);
+		
 		return this.post<LoanInfo>(incomeInfo).pipe(
 			tap(
 				{

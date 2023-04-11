@@ -5,20 +5,29 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './core/layout/layout.module';
 import { CoreModule } from './core/core.module';
-import { CalculatorComponent } from './modules/loans/calculator/calculator.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RequestInterceptor } from './shared/interceptors/request.interceptor';
+import { LowerCaseUrlSerializer } from './shared/interceptors/lower-case.serializer';
+import { UrlSerializer } from '@angular/router';
 
 @NgModule({
 	declarations: [
-		AppComponent,
-  CalculatorComponent
+		AppComponent
 	],
 	imports: [
 		BrowserModule,
 		CoreModule,
 		LayoutModule,
-		SharedModule
+		SharedModule,
+		BrowserAnimationsModule,
+		AppRoutingModule
 	],
-	providers: [],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+		{ provide: UrlSerializer, useClass: LowerCaseUrlSerializer }
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

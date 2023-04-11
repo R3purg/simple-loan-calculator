@@ -1,0 +1,62 @@
+<form fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="10px" fxFlex="50" [formGroup]="form" (ngSubmit)="onSubmit()">
+	<!-- <label [attr.for]="question.key">{{ question.label }}</label> -->
+
+	<mat-form-field>
+		<mat-label>monthlyIncome</mat-label>
+		<!-- [formControl]="emailFormControl" -->
+		<input
+			type="number"
+			matInput
+			placeholder="Ex. pat@example.com">
+		<!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+			Please enter a valid email address
+		</mat-error>
+		<mat-error *ngIf="emailFormControl.hasError('required')">
+			Email is <strong>required</strong>
+		</mat-error> -->
+	</mat-form-field>
+
+	<p>Pageidaujama paskolos suma (requestedAmount)</p>
+	<label>{{ form.get('requestedAmount')?.value | currency:'EUR':'symbol':'1.0-0' }}</label>
+	<mat-slider
+		disabled="false"
+		min="20000000"
+		max="50000000"
+		step="50"
+		discrete="false"
+		showTickMarks="false">
+		<input matSliderThumb formControlName="requestedAmount">
+	</mat-slider>
+
+	<p>Paskolos grąžinimo terminas (loanTerm)</p>
+	<label>{{ form.get('loanTerm')?.value | dateFormat }}</label>
+	<mat-slider
+		disabled="false"
+		min="36"
+		max="360"
+		step="6"
+		discrete="false"
+		showTickMarks="false">
+		<input matSliderThumb formControlName="loanTerm">
+	</mat-slider>
+
+	<mat-form-field appearance="fill">
+		<!-- <mat-label>Choose an option</mat-label> -->
+		<mat-select formControlName="children">
+			<mat-option>-</mat-option>
+			<mat-option *ngFor="let choice of children | keyvalue | slice:0:3" [value]="choice.value">{{ 'choice.' + choice.value }}</mat-option>
+		</mat-select>
+	</mat-form-field>
+
+	<mat-form-field appearance="fill">
+		<!-- <mat-label>Choose an option</mat-label> -->
+		<mat-select formControlName="coapplicant">
+			<mat-option>-</mat-option>
+			<mat-option *ngFor="let choice of coApplicant | keyvalue | slice:0:3" [value]="choice.value">{{ 'choice.' + choice.value }}</mat-option>
+		</mat-select>
+	</mat-form-field>
+
+	<button type="submit">Upload</button>
+
+	<!-- <div class="errorMessage" *ngIf="!isValid">{{ question.label }} is required</div> -->
+</form>

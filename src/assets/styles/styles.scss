@@ -4,3 +4,19 @@
 	font-family: "Roboto";
 	src: local("Roboto"), url(./fonts/Roboto-Regular.ttf) format("truetype");
 }
+
+html, body { height: 100%; }
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+app-layout {
+	height: 100%;
+	display: flex;
+	align-items: stretch;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+mat-tab-nav-panel {
+	margin: 20px;
+}
