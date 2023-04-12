@@ -36,6 +36,7 @@ export class LanguageService {
 	changeLanguage(language: string): void {
 		if (localStorage.getItem('language') !== language) {
 			localStorage.setItem('language', language);
+			location.reload();
 		}
 	}
 

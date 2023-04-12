@@ -4,7 +4,7 @@ import { ChildrenEnum } from '../../enums/ChildrenEnum';
 import { LoansService } from '../../services/loans.service';
 import { CoApplicantEnum } from '../../enums/CoApplicantEnum';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, of, startWith, switchMap } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, debounceTime, distinctUntilChanged, of, startWith, switchMap } from 'rxjs';
 
 @Component({
 	selector: 'app-calculator-personal',
@@ -20,7 +20,7 @@ export class CalculatorPersonalComponent implements OnInit {
 
 	children = ChildrenEnum;
 	coApplicant = CoApplicantEnum;
-	monthlyIncome: number = 0;
+	requestedAmount: number = 0;
 
 	constructor (
 		private loanService: LoansService
@@ -31,7 +31,7 @@ export class CalculatorPersonalComponent implements OnInit {
 		this.handleInputChange();
 	}
 
-	handleInputChange() {
+	private handleInputChange() {
 		this.form.valueChanges.pipe(
 			startWith(null),
 			distinctUntilChanged(),
@@ -44,7 +44,7 @@ export class CalculatorPersonalComponent implements OnInit {
 	private prepareFormGroup(incomeInfo: IncomeInfo) {
 		const group: any = {};
 
-		this.monthlyIncome = incomeInfo.monthlyIncome;
+		this.requestedAmount = incomeInfo.requestedAmount;
 
 		Object.entries(incomeInfo).forEach((entry) => {
 			group[entry[0]] = new FormControl(entry[1] || '', Validators.required);
@@ -54,6 +54,8 @@ export class CalculatorPersonalComponent implements OnInit {
 	}
 
 	private calcPayment(): Observable<void> {
+		if (!this.form.valid) return EMPTY;
+
 		return this.loanService.calcInterest(this.form.value).pipe(
 			switchMap(
 				(response) =>

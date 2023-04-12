@@ -3,20 +3,12 @@
 		<ng-container *ngFor="let item of headerItems">
 			<a mat-tab-link [routerLink]="item.route" [routerLinkActiveOptions]="{exact: true}" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">{{ item.label | translate }}</a>
 		</ng-container>
-		<ng-container *ngFor="let language in languageEnum | keyvalue">
-			{{ language }}
-		</ng-container>
-		<div *ngFor="let language in languageEnum | keyvalue">
-			<div>{{ language }}</div>
-		</div>
 	</nav>
-	<span>
-		<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-			<!-- <ng-container *ngFor="let language in languageEnum | keyvalue | slice:0:3">
-				<mat-button-toggle [value]="language">{{ language.value }}</mat-button-toggle>
-			</ng-container> -->
-		</mat-button-toggle-group>
-	</span>
+	<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+		<ng-container *ngFor="let lang of languages | slice:0:(languages.length / 2)">
+			<mat-button-toggle [value]="language.getLanguage()" (click)="language.changeLanguage(lang.toString())">{{ lang }}</mat-button-toggle>
+		</ng-container>
+	</mat-button-toggle-group>
 </mat-toolbar>
 <mat-tab-nav-panel #tabPanel>
 	<router-outlet></router-outlet>

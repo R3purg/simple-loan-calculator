@@ -2,7 +2,7 @@
 
 	<mat-label>{{ 'label.monthlyIncome' | translate }}</mat-label>
 	<mat-form-field>
-		<input type="number" matInput formControlName="monthlyIncome" [min]="500" [max]="1e+20">
+		<input type="number" matInput formControlName="monthlyIncome" min="500" max="1e+20">
 	</mat-form-field>
 
 	<div fxLayout="column">
@@ -17,11 +17,11 @@
 				step="50"
 				discrete="false"
 				showTickMarks="false">
-				<input matSliderThumb formControlName="requestedAmount" [(ngModel)]="monthlyIncome">
+				<input matSliderThumb formControlName="requestedAmount" [(ngModel)]="requestedAmount">
 			</mat-slider>
 			<mat-form-field fxFlex="25">
 				<div fxLayout="row">
-					<input type="number" matInput formControlName="requestedAmount" [min]="20000" [max]="50000" [(ngModel)]="monthlyIncome">
+					<input type="number" matInput min="20000" max="50000" formControlName="requestedAmount" [(ngModel)]="requestedAmount">
 					<mat-icon>euro_symbol</mat-icon>
 				</div>
 			</mat-form-field>

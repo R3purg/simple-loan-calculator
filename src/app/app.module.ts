@@ -15,6 +15,7 @@ import { UrlSerializer } from '@angular/router';
 import { LowerCaseUrlSerializer } from './shared/interceptors/lower-case.serializer';
 
 import localeLt from '@angular/common/locales/lt';
+import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
 
 @NgModule({
@@ -38,5 +39,6 @@ import { registerLocaleData } from '@angular/common';
 export class AppModule {
 	constructor () {
 		registerLocaleData(localeLt, 'lt');
+		registerLocaleData(localeRu, 'ru');
 	}
 }

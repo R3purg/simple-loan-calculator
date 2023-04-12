@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { headerItems } from './header.items';
 import { LanguageEnum } from '../../enum/LanguageEnum';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
 	selector: 'app-header',
@@ -8,6 +9,11 @@ import { LanguageEnum } from '../../enum/LanguageEnum';
 	styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+
+	constructor (
+		public language: LanguageService
+	) { }
+
 	headerItems = headerItems;
-	languageEnum = LanguageEnum;
+	languages = Object.values(LanguageEnum);
 }

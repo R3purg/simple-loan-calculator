@@ -27,7 +27,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 		CommonModule,
 		RouterModule,
 		FormsModule,
-		ReactiveFormsModule,
+		ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
 		FlexLayoutModule,
 		MatSliderModule,
 		MatToolbarModule,
