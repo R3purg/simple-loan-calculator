@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { headerItems } from './header.items';
+import { LanguageEnum } from '../../enum/LanguageEnum';
 
 @Component({
 	selector: 'app-header',
@@ -8,4 +9,5 @@ import { headerItems } from './header.items';
 })
 export class HeaderComponent {
 	headerItems = headerItems;
+	languageEnum = LanguageEnum;
 }

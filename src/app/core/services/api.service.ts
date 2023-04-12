@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiResponse } from '../models/ApiResponse';
-import { ApiError } from '../errors/ApiError';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable, OperatorFunction, catchError, map, of, switchMap, tap, throwError } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, OperatorFunction, catchError, map, of, switchMap, tap } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -27,7 +26,6 @@ export class ApiService {
 					success: false,
 					response: err.error
 				} as ApiResponse<T>);
-				// return throwError(() => new Error(err));
 			}),
 			tap(
 				{

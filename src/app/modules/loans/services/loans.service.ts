@@ -1,9 +1,9 @@
-import { Observable, tap } from 'rxjs';
-import { IncomeInfo } from '../models/IncomeInfo';
-import { ApiService } from 'src/app/core/services/api.service';
-import { LoanInfo } from '../models/LoanInfo';
-import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { LoanInfo } from '../models/LoanInfo';
+import { IncomeInfo } from '../models/IncomeInfo';
+import { HttpClient } from '@angular/common/http';
+import { ApiService } from 'src/app/core/services/api.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,35 +17,34 @@ export class LoansService extends ApiService {
 	}
 
 	/**
-	 * .
+	 * Calculates interest.
 	 * @returns Observable<LoanInfo>
 	 */
 	calcInterest(incomeInfo: IncomeInfo): Observable<LoanInfo> {
-		return this.post<LoanInfo>(incomeInfo).pipe(
-			tap(
-				{
-					error: (err) => {
-						console.log('err in calculateLoan()');
-					}
-				}
-			)
-		);
+		return this.post<LoanInfo>(this.prepareDto(incomeInfo));
 	}
 
-	calcPayment(price: number /* requestedAmount */, advanceSum: number /* 0 */, periodMonths: number /* loanTerm */, interest: number /* result of calculateLoan() -> interestRate */, residualValue: number /* 0 */): number {
+	/**
+	 * Calculates monthly payment.
+	 * @returns number
+	 */
+	calcPayment(price: number, advanceSum: number = 0, periodMonths: number, interest: number, residualValue: number = 0): number {
 		if (interest == 0) {
-			return ( price - advanceSum - (price * residualValue / 100) ) / periodMonths;
+			return Math.round((price - advanceSum - (price * residualValue / 100)) / periodMonths);
 		}	else {
-			return (((interest / 100 / 12) * ((price - advanceSum)-((price * residualValue / 100) / (Math.pow((interest / 100 / 12) + 1, periodMonths)))) / (1 - (1 / Math.pow((interest / 100 / 12) + 1, periodMonths)))));
+			return Math.round((interest / 100 / 12) * ((price - advanceSum)-((price * residualValue / 100) / (Math.pow((interest / 100 / 12) + 1, periodMonths)))) / (1 - (1 / Math.pow((interest / 100 / 12) + 1, periodMonths))));
 		}
 	}
 
-// private calcPaymentQt(price: number, advanceSum: number, periodQts: number, interest: number, residualValue: number) {
-//   if (interest == 0) {
-//     return ( price - advanceSum - (price * residualValue / 100) ) / periodQts;
-//   }	else {
-//     return (((interest / 100 / 4) * ((price - advanceSum)-((price * residualValue / 100) / (Math.pow((interest / 100 / 4) + 1, periodQts)))) / (1 - (1 / Math.pow((interest / 100 / 4) + 1, periodQts)))));
-//   }
-// }
+	/**
+	 * Prepare object to send to API.
+	 * @returns number
+	 */
+	private prepareDto(incomeInfo: IncomeInfo): IncomeInfo {
+		if (incomeInfo == null) throw new Error();
+		incomeInfo.monthlyIncome = (incomeInfo.monthlyIncome * 1000);
+		incomeInfo.requestedAmount = (incomeInfo.requestedAmount * 1000);
+		return incomeInfo;
+	}
 
 }

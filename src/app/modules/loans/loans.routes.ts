@@ -9,7 +9,7 @@ export const LOANS_ROUTES = [
 			{ path: 'personal', component: CalculatorPersonalComponent },
 			{
 				path: '**',
-				redirectTo: ''
+				redirectTo: 'personal'
 			}
 		]
 	}

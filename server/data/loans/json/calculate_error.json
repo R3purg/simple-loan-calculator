@@ -1,12 +1,12 @@
 {
-		"general": {
-				"code": "",
-				"message": ""
-		},
-		"fields": [
-			{
-				"params": "",
-				"message": ""
+	"general": {
+		"code": "",
+		"message": ""
+	},
+	"fields": [
+		{
+			"params": "",
+			"message": ""
 		}
-		]
+	]
 }

@@ -11,6 +11,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from './shared/interceptors/request.interceptor';
 import { LowerCaseUrlSerializer } from './shared/interceptors/lower-case.serializer';
 import { UrlSerializer } from '@angular/router';
+import { registerLocaleData } from '@angular/common';
+import localeLt from '@angular/common/locales/lt';
+import localeLv from '@angular/common/locales/lv';
 
 @NgModule({
 	declarations: [
@@ -30,4 +33,9 @@ import { UrlSerializer } from '@angular/router';
 	],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+	constructor () {
+		registerLocaleData(localeLt, 'lt');
+		registerLocaleData(localeLv, 'lv');
+	}
+}

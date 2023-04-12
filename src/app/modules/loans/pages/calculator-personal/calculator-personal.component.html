@@ -1,47 +1,35 @@
-<form fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="10px" fxFlex="50" [formGroup]="form" (ngSubmit)="onSubmit()">
-	<!-- <label [attr.for]="question.key">{{ question.label }}</label> -->
+<form fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="10px" fxFlex="50" [formGroup]="form">
 
+	<mat-label>{{ 'label.monthlyIncome' | translate }}</mat-label>
 	<mat-form-field>
-		<mat-label>monthlyIncome</mat-label>
-		<!-- [formControl]="emailFormControl" -->
-		<input
-			type="number"
-			matInput
-			placeholder="Ex. pat@example.com">
-		<!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-			Please enter a valid email address
-		</mat-error>
-		<mat-error *ngIf="emailFormControl.hasError('required')">
-			Email is <strong>required</strong>
-		</mat-error> -->
+		<input type="number" matInput formControlName="monthlyIncome" [min]="500" [max]="1e+20">
 	</mat-form-field>
 
-	<p>Pageidaujama paskolos suma (requestedAmount)</p>
-	<mat-form-field>
-		<div fxLayout="row">
-			<!-- <input
-				type="number"
-				matInput
-				(input)="onInputChange($event.target)"
-				[(ngModel)]="requestedAmount"> -->
-			<input type="number" matInput formControlName="requestedAmount" [min]="20000000" [max]="50000000" (input)="onInputChange($event.target)">
-			<!-- <input [(ngModel)]="showMoreControls" [ngModelOptions]="{standalone: true}"> -->
-			<mat-icon>euro_symbol</mat-icon>
+	<div fxLayout="column">
+		<mat-label>{{ 'label.requestedAmount' | translate }}</mat-label>
+		<mat-label>{{ form.get('requestedAmount')?.value | currency:'EUR':'symbol':'1.0-0' }}</mat-label>
+		<div fxLayout="row" fxLayoutAlign="space-between center">
+			<mat-slider
+				fxFlex="65"
+				disabled="false"
+				min="20000"
+				max="50000"
+				step="50"
+				discrete="false"
+				showTickMarks="false">
+				<input matSliderThumb formControlName="requestedAmount" [(ngModel)]="monthlyIncome">
+			</mat-slider>
+			<mat-form-field fxFlex="25">
+				<div fxLayout="row">
+					<input type="number" matInput formControlName="requestedAmount" [min]="20000" [max]="50000" [(ngModel)]="monthlyIncome">
+					<mat-icon>euro_symbol</mat-icon>
+				</div>
+			</mat-form-field>
 		</div>
-	</mat-form-field>
-	<label>{{ form.get('requestedAmount')?.value | currency:'EUR':'symbol':'1.0-0' }}</label>
-	<mat-slider
-		disabled="false"
-		min="20000"
-		max="50000"
-		step="50"
-		discrete="false"
-		showTickMarks="false">
-		<input matSliderThumb formControlName="requestedAmount">
-	</mat-slider>
+	</div>
 
-	<p>Paskolos grąžinimo terminas (loanTerm)</p>
-	<label>{{ form.get('loanTerm')?.value | dateFormat }}</label>
+	<mat-label>{{ 'label.loanTerm' | translate }}</mat-label>
+	<p>{{ form.get('loanTerm')?.value | dateFormat }}</p>
 	<mat-slider
 		disabled="false"
 		min="36"
@@ -52,30 +40,22 @@
 		<input matSliderThumb formControlName="loanTerm">
 	</mat-slider>
 
+	<mat-label>{{ 'label.children' | translate }}</mat-label>
 	<mat-form-field appearance="fill">
-		<!-- <mat-label>Choose an option</mat-label> -->
-		<mat-select formControlName="children">
-			<mat-option>-</mat-option>
-			<mat-option *ngFor="let choice of children | keyvalue | slice:0:3" [value]="choice.value">{{ 'choice.' + choice.value }}</mat-option>
+		<mat-select [value]="form.get('children')?.value" formControlName="children">
+			<mat-option *ngFor="let choice of children | keyvalue | slice:0:3" [value]="choice.value">{{ 'choice.' + choice.value | translate }}</mat-option>
 		</mat-select>
 	</mat-form-field>
 
+	<mat-label>{{ 'label.coapplicant' | translate }}</mat-label>
 	<mat-form-field appearance="fill">
-		<!-- <mat-label>Choose an option</mat-label> -->
 		<mat-select formControlName="coapplicant">
-			<mat-option>-</mat-option>
-			<mat-option *ngFor="let choice of coApplicant | keyvalue | slice:0:3" [value]="choice.value">{{ 'choice.' + choice.value }}</mat-option>
+			<mat-option *ngFor="let choice of coApplicant | keyvalue | slice:0:3" [value]="choice.value">{{ 'choice.' + choice.value | translate }}</mat-option>
 		</mat-select>
 	</mat-form-field>
 
-	<h1 *ngIf="(monthlyPayment$ | async) as value; else loading">
-		{{ value }}
-	</h1>
-	<ng-template #loading>
-		Loading...
-	</ng-template>
-
-	<button mat-button type="submit">Upload</button>
-
-	<!-- <div class="errorMessage" *ngIf="!isValid">{{ question.label }} is required</div> -->
+	<mat-label>{{ 'label.monthlyPayment' | translate }}</mat-label>
+	<div fxLayout="column" *ngIf="(monthlyPayment$ | async) as value">
+		<p>{{ value | currency:'EUR':'symbol':'1.0-0'}}</p>
+	</div>
 </form>

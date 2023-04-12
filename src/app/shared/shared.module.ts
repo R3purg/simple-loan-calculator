@@ -15,6 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 // import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
@@ -34,6 +36,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 		MatInputModule,
 		MatSelectModule,
 		MatButtonModule,
+		TranslateModule,
+		MatButtonToggleModule
 		// MatMenuModule
 	],
 	exports: [
@@ -50,6 +54,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 		MatSelectModule,
 		DateFormatterPipe,
 		MatButtonModule,
+		TranslateModule,
+		MatButtonToggleModule
 		// MatMenuModule
 	]
 })

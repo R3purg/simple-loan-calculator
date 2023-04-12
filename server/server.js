@@ -12,9 +12,7 @@ server.post('', (req, res, next) => {
 	handleAndValidate(req, res, next);
 });
 
-server.listen(3000, () => {
-	console.log('JSON server listening on port 3000');
-});
+server.listen(3000, () => { });
 
 function handleAndValidate(req, res, next) {
 	const fieldConditions = [

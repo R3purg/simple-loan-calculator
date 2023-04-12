@@ -1,0 +1,19 @@
+{
+	"choice.NONE": "Nėra",
+	"choice.SINGLE": "Vienas",
+	"choice.MULTIPLE": "Keli",
+	"choice.SINGLE_BORROWER": "Vienas skolininkas",
+	"choice.MULTIPLE_BORROWERS": "Keli skolininkai",
+	"title.calculators_personal": "Paskolos skaičiuoklė",
+	"label.monthlyIncome": "Mėnesinės pajamos",
+	"label.requestedAmount": "Prašoma suma",
+	"label.loanTerm": "Paskolos terminas",
+	"label.children": "Vaikai",
+	"label.coapplicant": "Bendras pareiškėjas",
+	"label.monthlyPayment": "Mėn. įmoka",
+	"common.years": "metai",
+	"common.years_genitivus": "metų",
+	"common.months": "mėnesiai",
+	"footer.by_email": "Galite susisiekti el. paštu",
+	"footer.all_rights": "MIT licenzija"
+}

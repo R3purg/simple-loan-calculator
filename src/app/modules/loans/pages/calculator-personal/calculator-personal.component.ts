@@ -1,28 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from 'src/app/core/services/api.service';
 import { IncomeInfo } from '../../models/IncomeInfo';
 import { ChildrenEnum } from '../../enums/ChildrenEnum';
-import { CoApplicantEnum } from '../../enums/CoApplicantEnum';
 import { LoansService } from '../../services/loans.service';
-import { BehaviorSubject, Observable, debounceTime, delay, distinctUntilChanged, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
-
-// export class SliderConfigurableExample {
-// 	disabled = false;
-// 	min = 0;
-// 	max = 100;
-// 	showTicks = false;
-// 	step = 1;
-// 	thumbLabel = false;
-// 	value = 0;
-// }
-
-// [disabled]="disabled"
-// [max]="max"
-// [min]="min"
-// [step]="step"
-// [discrete]="thumbLabel"
-// [showTickMarks]="showTicks"
+import { CoApplicantEnum } from '../../enums/CoApplicantEnum';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, Observable, combineLatest, debounceTime, distinctUntilChanged, of, startWith, switchMap } from 'rxjs';
 
 @Component({
 	selector: 'app-calculator-personal',
@@ -33,19 +15,15 @@ export class CalculatorPersonalComponent implements OnInit {
 
 	form: FormGroup = new FormGroup({});
 
-  private monthlyPaymentSubject = new BehaviorSubject<number>(0);
-  public monthlyPayment$ = this.monthlyPaymentSubject.asObservable();
+	private monthlyPaymentSubject = new BehaviorSubject<number>(0);
+	public monthlyPayment$ = this.monthlyPaymentSubject.asObservable();
 
-	requestedAmount: number = 20000000;
-	loanTerm: number = 36;
 	children = ChildrenEnum;
 	coApplicant = CoApplicantEnum;
-
-	temp: number = 0;
+	monthlyIncome: number = 0;
 
 	constructor (
-		private loanService: LoansService,
-		private formBuilder: FormBuilder
+		private loanService: LoansService
 	) { }
 
 	ngOnInit(): void {
@@ -53,26 +31,20 @@ export class CalculatorPersonalComponent implements OnInit {
 		this.handleInputChange();
 	}
 
-	onSubmit(): void {
-		// this.calcPayment().subscribe();
-	}
-
-	onInputChange(value: any) {
-		console.log(value);
-		// this.form.get('requestedAmount')?.setValue(value);
-	}
-
-	private handleInputChange() {
-		// this.temp = this.form.get('requestedAmount')?.value;
-		this.form.get('requestedAmount')?.valueChanges.subscribe(value => {
-			console.log('value: ', value);
+	handleInputChange() {
+		this.form.valueChanges.pipe(
+			startWith(null),
+			distinctUntilChanged(),
+			debounceTime(500)
+		).subscribe(() => {
 			this.calcPayment().subscribe();
-			// this.temp = value ?? 0;
 		});
 	}
 
 	private prepareFormGroup(incomeInfo: IncomeInfo) {
 		const group: any = {};
+
+		this.monthlyIncome = incomeInfo.monthlyIncome;
 
 		Object.entries(incomeInfo).forEach((entry) => {
 			group[entry[0]] = new FormControl(entry[1] || '', Validators.required);
@@ -83,8 +55,6 @@ export class CalculatorPersonalComponent implements OnInit {
 
 	private calcPayment(): Observable<void> {
 		return this.loanService.calcInterest(this.form.value).pipe(
-			distinctUntilChanged(),
-			debounceTime(3000),
 			switchMap(
 				(response) =>
 					of(
@@ -93,7 +63,7 @@ export class CalculatorPersonalComponent implements OnInit {
 									Number.parseInt(this.form.get('requestedAmount')?.value),
 									0,
 									Number.parseInt(this.form.get('loanTerm')?.value),
-									response.interestRate,
+									(response.interestRate / 1000),
 									0
 								)
 							)
@@ -101,6 +71,4 @@ export class CalculatorPersonalComponent implements OnInit {
 			)
 		);
 	}
-
-
 }

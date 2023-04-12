@@ -1,50 +1,36 @@
 import { NgModule } from '@angular/core';
-// import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-// import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-// import { InternationalizationModule } from '../shared/module/internationalization.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-// import {
-// 	ConfigurationService,
-// 	LanguageService
-// } from './services/'
 import { ApiService } from './services/api.service';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { LanguageService } from './services/language.service';
+import { InternationalizationModule } from '../shared/module/internationalization.module';
 
-// export function HttpLoaderFactory(http: HttpClient) {
-// 	return new TranslateHttpLoader(http, '../assets/locales/', '.json');
-// }
+export function HttpLoaderFactory(http: HttpClient) {
+	return new TranslateHttpLoader(http, '../../assets/locales/', '.json');
+}
 
 @NgModule({
 	imports: [
 		HttpClientModule,
-		// InternationalizationModule.forRoot(),
-		// TranslateModule.forRoot({
-		// 	loader: {
-		// 		provide: TranslateLoader,
-		// 		useFactory: HttpLoaderFactory,
-		// 		deps: [HttpClient]
-		// 	}
-		// }),
-		// ToastrModule.forRoot({
-		// 	preventDuplicates: true,
-		// 	tapToDismiss: true,
-		// 	closeButton: true,
-		// 	resetTimeoutOnDuplicate: true,
-		// 	includeTitleDuplicates: true,
-		// }),
+		InternationalizationModule.forRoot(),
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: HttpLoaderFactory,
+				deps: [HttpClient]
+			}
+		})
 	],
 	providers: [
-		// { provide: MAT_DATE_LOCALE, deps: [LanguageService],
-		// 	useFactory: (languageService) => languageService.getLanguage()
-		// },
-		// { provide: DateAdapter,
-		// 	useClass: CustomDateAdapter,
-		// 	deps: [MAT_DATE_LOCALE, Platform]
-		// },
+		{ provide: MAT_DATE_LOCALE, deps: [LanguageService],
+			useFactory: (languageService: any) => languageService.getLanguage()
+		},
 		ApiService,
-		// LanguageService,
-		// ConfigurationService
+		LanguageService
 	],
 	declarations: []
 })
-export class CoreModule {}
+export class CoreModule { }
