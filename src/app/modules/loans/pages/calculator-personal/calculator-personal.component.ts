@@ -57,7 +57,7 @@ export class CalculatorPersonalComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		this.loanService.calculateLoan(this.form.value).subscribe(response => {
+		this.loanService.calcInterest(this.form.value).subscribe(response => {
 			console.log('response: ', response);
 		});
 	}

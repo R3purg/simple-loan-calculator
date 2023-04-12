@@ -20,9 +20,7 @@ export class LoansService extends ApiService {
 	 * .
 	 * @returns Observable<LoanInfo>
 	 */
-	calculateLoan(incomeInfo: IncomeInfoDto): Observable<LoanInfo> {
-		console.log('incomeInfo: ', incomeInfo);
-		
+	calcInterest(incomeInfo: IncomeInfoDto): Observable<LoanInfo> {
 		return this.post<LoanInfo>(incomeInfo).pipe(
 			tap(
 				{
@@ -34,20 +32,20 @@ export class LoansService extends ApiService {
 		);
 	}
 
-private calcPayment(price: number /* requestedAmount */, advanceSum: number /* 0 */, periodMonths: number /* loanTerm */, interest: number /* result of calculateLoan() -> interestRate */, residualValue: number /* 0 */) {
-  if (interest == 0) {
-    return ( price - advanceSum - (price * residualValue / 100) ) / periodMonths;
-  }	else {
-    return (((interest / 100 / 12) * ((price - advanceSum)-((price * residualValue / 100) / (Math.pow((interest / 100 / 12) + 1, periodMonths)))) / (1 - (1 / Math.pow((interest / 100 / 12) + 1, periodMonths)))));
-  }
-}
+	private calcPayment(price: number /* requestedAmount */, advanceSum: number /* 0 */, periodMonths: number /* loanTerm */, interest: number /* result of calculateLoan() -> interestRate */, residualValue: number /* 0 */) {
+		if (interest == 0) {
+			return ( price - advanceSum - (price * residualValue / 100) ) / periodMonths;
+		}	else {
+			return (((interest / 100 / 12) * ((price - advanceSum)-((price * residualValue / 100) / (Math.pow((interest / 100 / 12) + 1, periodMonths)))) / (1 - (1 / Math.pow((interest / 100 / 12) + 1, periodMonths)))));
+		}
+	}
 
-private calcPaymentQt(price: number, advanceSum: number, periodQts: number, interest: number, residualValue: number) {
-  if (interest == 0) {
-    return ( price - advanceSum - (price * residualValue / 100) ) / periodQts;
-  }	else {
-    return (((interest / 100 / 4) * ((price - advanceSum)-((price * residualValue / 100) / (Math.pow((interest / 100 / 4) + 1, periodQts)))) / (1 - (1 / Math.pow((interest / 100 / 4) + 1, periodQts)))));
-  }
-}
+// private calcPaymentQt(price: number, advanceSum: number, periodQts: number, interest: number, residualValue: number) {
+//   if (interest == 0) {
+//     return ( price - advanceSum - (price * residualValue / 100) ) / periodQts;
+//   }	else {
+//     return (((interest / 100 / 4) * ((price - advanceSum)-((price * residualValue / 100) / (Math.pow((interest / 100 / 4) + 1, periodQts)))) / (1 - (1 / Math.pow((interest / 100 / 4) + 1, periodQts)))));
+//   }
+// }
 
 }

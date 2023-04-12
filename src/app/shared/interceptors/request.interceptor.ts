@@ -16,6 +16,7 @@ export class RequestInterceptor implements HttpInterceptor {
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		let clonedReq = req.clone();
+		// let clonedReq = req.clone({ headers: req.headers.append('Access-Control-Allow-Origin', '*') });
 		clonedReq = req.clone({ headers: req.headers.append('X-API-KEY', environment.api_key) });
 		return next.handle(clonedReq).pipe(
 			catchError(
