@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
+
+import { LOANS_ROUTES } from './loans.routes';
 
 import { CalculatorMainComponent } from './pages/calculator-main/calculator-main.component';
 import { CalculatorPersonalComponent } from './pages/calculator-personal/calculator-personal.component';
-import { LOANS_ROUTES } from './loans.routes';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
 	declarations: [

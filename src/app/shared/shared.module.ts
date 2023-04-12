@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSliderModule } from '@angular/material/slider';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSliderModule } from '@angular/material/slider';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // CalculatorPersonalComponent
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { DateFormatterPipe } from './pipes/date-formatter.pipe';
 import { MatButtonModule } from '@angular/material/button';
 
+import { DateFormatterPipe } from './pipes/date-formatter.pipe';
+
 // HeaderComponent
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTabsModule } from '@angular/material/tabs';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-// import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
 	declarations: [
@@ -38,7 +38,6 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 		MatButtonModule,
 		TranslateModule,
 		MatButtonToggleModule
-		// MatMenuModule
 	],
 	exports: [
 		CommonModule,
@@ -56,7 +55,6 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 		MatButtonModule,
 		TranslateModule,
 		MatButtonToggleModule
-		// MatMenuModule
 	]
 })
 export class SharedModule { }

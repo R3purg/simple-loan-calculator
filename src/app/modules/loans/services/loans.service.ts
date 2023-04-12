@@ -10,6 +10,10 @@ import { ApiService } from 'src/app/core/services/api.service';
 })
 export class LoansService extends ApiService {
 
+	/**
+	 * @constructor
+	 * @param HttpClient http - http service
+	 */
 	constructor (
 		http: HttpClient
 	) {
@@ -17,7 +21,8 @@ export class LoansService extends ApiService {
 	}
 
 	/**
-	 * Calculates interest.
+	 * Calculates interest
+	 * @param incomeInfo
 	 * @returns Observable<LoanInfo>
 	 */
 	calcInterest(incomeInfo: IncomeInfo): Observable<LoanInfo> {
@@ -25,7 +30,12 @@ export class LoansService extends ApiService {
 	}
 
 	/**
-	 * Calculates monthly payment.
+	 * Calculates monthly payment
+	 * @param price
+	 * @param advanceSum
+	 * @param periodMonths
+	 * @param interest
+	 * @param residualValue
 	 * @returns number
 	 */
 	calcPayment(price: number, advanceSum: number = 0, periodMonths: number, interest: number, residualValue: number = 0): number {
@@ -37,13 +47,16 @@ export class LoansService extends ApiService {
 	}
 
 	/**
-	 * Prepare object to send to API.
+	 * Prepare object to send to API
+	 * @param incomeInfo
 	 * @returns number
 	 */
 	private prepareDto(incomeInfo: IncomeInfo): IncomeInfo {
 		if (incomeInfo == null) throw new Error();
+
 		incomeInfo.monthlyIncome = (incomeInfo.monthlyIncome * 1000);
 		incomeInfo.requestedAmount = (incomeInfo.requestedAmount * 1000);
+
 		return incomeInfo;
 	}
 

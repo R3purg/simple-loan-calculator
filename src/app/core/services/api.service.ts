@@ -9,10 +9,28 @@ import { Observable, OperatorFunction, catchError, map, of, switchMap, tap } fro
 })
 export class ApiService {
 
+	/**
+	 * @constructor
+	 * @param HttpClient http - HTTP client
+	 */
 	constructor (
 		protected readonly http: HttpClient
 	) { }
 
+	/**
+	 * HTTP POST API request base function
+	 * @returns Observable<T>
+	 */
+	protected post<T>(body: Object = {}, params: HttpParams = new HttpParams()): Observable<T> {
+		return this.http.post<ApiResponse<T>>(`${environment.api_url}`, body, { params: params }).pipe(
+			this.responseLogic()
+		);
+	}
+
+	/**
+	 * HTTP request base response logic
+	 * @returns OperatorFunction<ApiResponse<T>, any>
+	 */
 	private responseLogic<T>(): OperatorFunction<ApiResponse<T>, any> {
 		return response$ => response$.pipe(
 			switchMap((response) => {
@@ -43,13 +61,6 @@ export class ApiService {
 					return data.response;
 				}
 			)
-		);
-	}
-
-	protected post<T>(body: Object = {}, params: HttpParams = new HttpParams()): Observable<T> {
-		console.debug(`${environment.api_url}`);
-		return this.http.post<ApiResponse<T>>(`${environment.api_url}`, body, { params: params }).pipe(
-			this.responseLogic()
 		);
 	}
 

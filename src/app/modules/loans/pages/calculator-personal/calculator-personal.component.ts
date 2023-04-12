@@ -4,7 +4,7 @@ import { ChildrenEnum } from '../../enums/ChildrenEnum';
 import { LoansService } from '../../services/loans.service';
 import { CoApplicantEnum } from '../../enums/CoApplicantEnum';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable, combineLatest, debounceTime, distinctUntilChanged, of, startWith, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, of, startWith, switchMap } from 'rxjs';
 
 @Component({
 	selector: 'app-calculator-personal',

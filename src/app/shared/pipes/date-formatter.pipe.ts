@@ -6,19 +6,28 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class DateFormatterPipe implements PipeTransform {
 
+	/**
+	 * @constructor
+	 * @param TranslateService translate - translate service
+	 */
 	constructor (
 		private translate: TranslateService
 	) { }
 
+	/**
+	 * Overriding base transform for period formatting in '/calculators/*'
+	 * @param value
+	 * @returns string
+	 */
 	transform(value: number): string {
 		var years: number = (value / 12);
 		var months: number = 0;
-		
+
 		if (years % 1 != 0) {
 			years = Math.floor(years);
 			months = 6;
 		}
-		
+
 		var result: string = `${years} `;
 
 		this.translate.get([

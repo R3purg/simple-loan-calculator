@@ -25,7 +25,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 		})
 	],
 	providers: [
-		{ provide: MAT_DATE_LOCALE, deps: [LanguageService],
+		{
+			provide: MAT_DATE_LOCALE, deps: [LanguageService],
 			useFactory: (languageService: any) => languageService.getLanguage()
 		},
 		ApiService,

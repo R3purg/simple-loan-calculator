@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpInterceptor } from '@angular/common/http';
-import { HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { HttpHandler } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { HttpEvent } from '@angular/common/http';
+import { HttpRequest } from '@angular/common/http';
+import { HttpHandler } from '@angular/common/http';
+import { HttpInterceptor } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -15,8 +15,9 @@ export class RequestInterceptor implements HttpInterceptor {
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		let clonedReq = req.clone();
-		// let clonedReq = req.clone({ headers: req.headers.append('Access-Control-Allow-Origin', '*') });
 		clonedReq = req.clone({ headers: req.headers.append('X-API-KEY', environment.api_key) });
+		// let clonedReq = req.clone({ headers: req.headers.append('Access-Control-Allow-Origin', '*') });
+
 		return next.handle(clonedReq);
 	}
 }
