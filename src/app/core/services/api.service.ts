@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ApiResponse } from '../models/ApiResponse';
+import { ApiError } from '../errors/ApiError';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable, OperatorFunction, catchError, map, tap, throwError } from 'rxjs';
+import { Observable, OperatorFunction, catchError, map, of, switchMap, tap, throwError } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,11 +16,24 @@ export class ApiService {
 
 	private responseLogic<T>(): OperatorFunction<ApiResponse<T>, any> {
 		return response$ => response$.pipe(
+			switchMap((response) => {
+				return of({
+					success: true,
+					response: response
+				} as ApiResponse<T>);
+			}),
+			catchError((err) => {
+				return of({
+					success: false,
+					response: err.error
+				} as ApiResponse<T>);
+				// return throwError(() => new Error(err));
+			}),
 			tap(
 				{
 					next: (data) => {
 						if (!data.success) {
-
+							console.debug('Error from ApiService HTTP PUT request: ', data);
 						} else {
 							console.debug('Data from ApiService HTTP PUT request: ', data);
 						}
@@ -30,10 +44,7 @@ export class ApiService {
 				data => {
 					return data.response;
 				}
-			),
-			catchError((err) => {
-				return throwError(() => new Error(err));
-			})
+			)
 		);
 	}
 

@@ -17,11 +17,23 @@
 	</mat-form-field>
 
 	<p>Pageidaujama paskolos suma (requestedAmount)</p>
+	<mat-form-field>
+		<div fxLayout="row">
+			<!-- <input
+				type="number"
+				matInput
+				(input)="onInputChange($event.target)"
+				[(ngModel)]="requestedAmount"> -->
+			<input type="number" matInput formControlName="requestedAmount" [min]="20000000" [max]="50000000" (input)="onInputChange($event.target)">
+			<!-- <input [(ngModel)]="showMoreControls" [ngModelOptions]="{standalone: true}"> -->
+			<mat-icon>euro_symbol</mat-icon>
+		</div>
+	</mat-form-field>
 	<label>{{ form.get('requestedAmount')?.value | currency:'EUR':'symbol':'1.0-0' }}</label>
 	<mat-slider
 		disabled="false"
-		min="20000000"
-		max="50000000"
+		min="20000"
+		max="50000"
 		step="50"
 		discrete="false"
 		showTickMarks="false">
@@ -56,7 +68,14 @@
 		</mat-select>
 	</mat-form-field>
 
-	<button type="submit">Upload</button>
+	<h1 *ngIf="(monthlyPayment$ | async) as value; else loading">
+		{{ value }}
+	</h1>
+	<ng-template #loading>
+		Loading...
+	</ng-template>
+
+	<button mat-button type="submit">Upload</button>
 
 	<!-- <div class="errorMessage" *ngIf="!isValid">{{ question.label }} is required</div> -->
 </form>

@@ -1,5 +1,5 @@
 import { Observable, tap } from 'rxjs';
-import { IncomeInfoDto } from '../models/IncomeInfoDto';
+import { IncomeInfo } from '../models/IncomeInfo';
 import { ApiService } from 'src/app/core/services/api.service';
 import { LoanInfo } from '../models/LoanInfo';
 import { HttpClient } from '@angular/common/http';
@@ -20,7 +20,7 @@ export class LoansService extends ApiService {
 	 * .
 	 * @returns Observable<LoanInfo>
 	 */
-	calcInterest(incomeInfo: IncomeInfoDto): Observable<LoanInfo> {
+	calcInterest(incomeInfo: IncomeInfo): Observable<LoanInfo> {
 		return this.post<LoanInfo>(incomeInfo).pipe(
 			tap(
 				{
@@ -32,7 +32,7 @@ export class LoansService extends ApiService {
 		);
 	}
 
-	private calcPayment(price: number /* requestedAmount */, advanceSum: number /* 0 */, periodMonths: number /* loanTerm */, interest: number /* result of calculateLoan() -> interestRate */, residualValue: number /* 0 */) {
+	calcPayment(price: number /* requestedAmount */, advanceSum: number /* 0 */, periodMonths: number /* loanTerm */, interest: number /* result of calculateLoan() -> interestRate */, residualValue: number /* 0 */): number {
 		if (interest == 0) {
 			return ( price - advanceSum - (price * residualValue / 100) ) / periodMonths;
 		}	else {

@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { DateFormatterPipe } from './pipes/date-formatter.pipe';
+import { MatButtonModule } from '@angular/material/button';
 
 // HeaderComponent
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -32,6 +33,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 		MatTabsModule,
 		MatInputModule,
 		MatSelectModule,
+		MatButtonModule,
 		// MatMenuModule
 	],
 	exports: [
@@ -47,6 +49,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 		MatInputModule,
 		MatSelectModule,
 		DateFormatterPipe,
+		MatButtonModule,
 		// MatMenuModule
 	]
 })

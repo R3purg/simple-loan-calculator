@@ -9,7 +9,7 @@ import { CoApplicantEnum } from "../enums/CoApplicantEnum";
 // 	coapplicant: CoApplicantEnum
 // }
 
-export class IncomeInfoDto {
+export class IncomeInfo {
 	monthlyIncome: number;
 	requestedAmount: number;
 	loanTerm: number;
@@ -23,10 +23,10 @@ export class IncomeInfoDto {
 			children?: ChildrenEnum;
 			coapplicant?: CoApplicantEnum;
 		} = {}) {
-		this.monthlyIncome = options.monthlyIncome || 500000;
-		this.requestedAmount = options.requestedAmount || 20000000;
-		this.loanTerm = options.loanTerm || 36;
-		this.children = options.children || ChildrenEnum.NONE;
-		this.coapplicant = options.coapplicant || CoApplicantEnum.NONE
+		this.monthlyIncome = (options.monthlyIncome ?? 500) * 1000;
+		this.requestedAmount = (options.requestedAmount ?? 20000) * 1000;
+		this.loanTerm = options.loanTerm ?? 36;
+		this.children = options.children ?? ChildrenEnum.NONE;
+		this.coapplicant = options.coapplicant ?? CoApplicantEnum.NONE
 	}
 }
