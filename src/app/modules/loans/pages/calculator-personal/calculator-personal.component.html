@@ -1,0 +1,86 @@
+<form fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="10px" fxFlex="60" [formGroup]="form">
+
+	<div fxLayout="column">
+		<mat-label>{{ 'label.monthlyIncome' | translate }}</mat-label>
+		<mat-form-field>
+			<input type="number" matInput formControlName="monthlyIncome" min="500" max="1e+20">
+			<mat-error *ngIf="(form.get('monthlyIncome')?.hasError('required'))">{{ 'error.required_field' | translate: { field: 'monthlyIncome' } }}</mat-error>
+			<mat-error *ngIf="(form.get('monthlyIncome')?.hasError('min'))">{{ 'error.min_field' | translate: { field: 'monthlyIncome' } }}</mat-error>
+			<mat-error *ngIf="(form.get('monthlyIncome')?.hasError('max'))">{{ 'error.max_field' | translate: { field: 'monthlyIncome' } }}</mat-error>
+		</mat-form-field>
+	</div>
+
+	<div fxLayout="column">
+		<mat-label>{{ 'label.requestedAmount' | translate }}</mat-label>
+		<mat-label>{{ form.get('requestedAmount')?.value | currency:'EUR':'symbol':'1.0-0' }}</mat-label>
+		<div fxLayout="row" fxLayoutAlign="space-between center">
+			<span fxFlex="5">{{ '20000' | currency:'EUR':'symbol':'1.0-0' }}</span>
+			<mat-slider
+				fxFlex="60"
+				disabled="false"
+				min="20000"
+				max="50000"
+				step="50"
+				discrete="false"
+				showTickMarks="false">
+				<input matSliderThumb formControlName="requestedAmount" [(ngModel)]="requestedAmount">
+			</mat-slider>
+			<span fxFlex="5">{{ '50000' | currency:'EUR':'symbol':'1.0-0' }}</span>
+			<mat-form-field fxFlex="20">
+				<div fxLayout="row">
+					<input type="number" matInput min="20000" max="50000" formControlName="requestedAmount" [(ngModel)]="requestedAmount">
+					<mat-icon>euro_symbol</mat-icon>
+				</div>
+				<mat-error *ngIf="(form.get('requestedAmount')?.hasError('required'))">{{ 'error.required_field' | translate: { field: 'requestedAmount' } }}</mat-error>
+				<mat-error *ngIf="(form.get('requestedAmount')?.hasError('min'))">{{ 'error.min_field' | translate: { field: 'requestedAmount' } }}</mat-error>
+				<mat-error *ngIf="(form.get('requestedAmount')?.hasError('max'))">{{ 'error.max_field' | translate: { field: 'requestedAmount' } }}</mat-error>
+			</mat-form-field>
+		</div>
+	</div>
+
+	<div fxLayout="column">
+		<mat-label>{{ 'label.loanTerm' | translate }}</mat-label>
+		<p>{{ form.get('loanTerm')?.value | dateFormat }}</p>
+		<div fxLayout="row" fxLayoutAlign="space-between center">
+			<span fxFlex="5">{{ 36 | dateFormat }}</span>
+			<mat-slider
+				fxFlex="60"
+				disabled="false"
+				min="36"
+				max="360"
+				step="6"
+				discrete="false"
+				showTickMarks="false">
+				<input matSliderThumb formControlName="loanTerm">
+			</mat-slider>
+			<span fxFlex="5">{{ 360 | dateFormat }}</span>
+			<span fxFlex="20"></span>
+		</div>
+	</div>
+
+	<div fxLayout="column">
+		<mat-label>{{ 'label.children' | translate }}</mat-label>
+		<mat-form-field appearance="fill">
+			<mat-select [value]="form.get('children')?.value" formControlName="children">
+				<mat-option *ngFor="let choice of children | keyvalue | slice:0:3" [value]="choice.value">{{ 'choice.' + choice.value | translate }}</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+
+	<div fxLayout="column">
+		<mat-label>{{ 'label.coapplicant' | translate }}</mat-label>
+		<mat-form-field appearance="fill">
+			<mat-select formControlName="coapplicant">
+				<mat-option *ngFor="let choice of coApplicant | keyvalue | slice:0:3" [value]="choice.value">{{ 'choice.' + choice.value | translate }}</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+
+	<mat-label>{{ 'label.monthlyPayment' | translate }}</mat-label>
+	<div fxLayout="column" *ngIf="(monthlyPayment$ | async) as value">
+		<p *ngIf="form.valid; else error">{{ value | currency:'EUR':'symbol':'1.0-0'}}</p>
+		<ng-template #error>
+			<p>-</p>
+		</ng-template>
+	</div>
+</form>

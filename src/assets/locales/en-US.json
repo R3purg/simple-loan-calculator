@@ -1,0 +1,22 @@
+{
+	"choice.NONE": "None",
+	"choice.SINGLE": "Single",
+	"choice.MULTIPLE": "Multiple",
+	"choice.SINGLE_BORROWER": "One borrower",
+	"choice.MULTIPLE_BORROWERS": "Multiple borrowers",
+	"title.calculators_personal": "Loan calculator",
+	"label.monthlyIncome": "Monthly income",
+	"label.requestedAmount": "Requested amount",
+	"label.loanTerm": "Loan term",
+	"label.children": "Children",
+	"label.coapplicant": "CoApplicant",
+	"label.monthlyPayment": "Monthly payment",
+	"common.years": "years",
+	"common.years_genitivus": "years",
+	"common.months": "months",
+	"error.required_field": "Field '{{field}}' is required!",
+	"error.min_field": "Field '{{field}}' value is less than min!",
+	"error.max_field": "Field '{{field}}' value exceeds max!",
+	"footer.by_email": "Contact me by e-mail",
+	"footer.all_rights": "MIT license"
+}

@@ -1,0 +1,30 @@
+@use '_variables' as var;
+
+@font-face {
+	font-family: "Roboto";
+	src: local("Roboto"), url(./fonts/Roboto-Regular.ttf) format("truetype");
+}
+
+html, body { height: 100%; }
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+app-layout {
+	height: 100%;
+	display: flex;
+	align-items: stretch;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+app-calculator-personal {
+	justify-content: center;
+}
+
+mat-tab-nav-panel {
+	margin: 20px;
+}
+
+.mat-toolbar-single-row {
+	justify-content: space-between;
+}
