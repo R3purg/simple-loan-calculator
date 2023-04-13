@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
 import { IncomeInfo } from '../../models/IncomeInfo';
 import { ChildrenEnum } from '../../enums/ChildrenEnum';
 import { LoansService } from '../../services/loans.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CoApplicantEnum } from '../../enums/CoApplicantEnum';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, EMPTY, Observable, debounceTime, distinctUntilChanged, of, startWith, switchMap } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, Subject, debounceTime, distinctUntilChanged, of, startWith, switchMap, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-calculator-personal',
 	templateUrl: './calculator-personal.component.html',
 	styleUrls: ['./calculator-personal.component.scss']
 })
-export class CalculatorPersonalComponent implements OnInit {
+export class CalculatorPersonalComponent implements OnInit, OnDestroy {
 
 	form: FormGroup = new FormGroup({});
+
+	unsubObs$ = new Subject();
 
 	private monthlyPaymentSubject = new BehaviorSubject<number>(0);
 	public monthlyPayment$ = this.monthlyPaymentSubject.asObservable();
@@ -33,6 +35,7 @@ export class CalculatorPersonalComponent implements OnInit {
 
 	private handleInputChange() {
 		this.form.valueChanges.pipe(
+			takeUntil(this.unsubObs$),
 			startWith(null),
 			distinctUntilChanged(),
 			debounceTime(500)
@@ -72,5 +75,10 @@ export class CalculatorPersonalComponent implements OnInit {
 						)
 			)
 		);
+	}
+
+	ngOnDestroy(): void {
+		this.unsubObs$.next(true);
+		this.unsubObs$.complete();
 	}
 }

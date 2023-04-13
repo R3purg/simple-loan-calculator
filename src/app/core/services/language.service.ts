@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 export class LanguageService {
 
 	/**
-	 * Get all available language from enum
+	 * Get all available languages from enum
 	 * @returns Array<string>
 	 */
 	langs(): Array<string> {

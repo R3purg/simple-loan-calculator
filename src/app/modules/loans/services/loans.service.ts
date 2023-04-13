@@ -5,9 +5,7 @@ import { IncomeInfo } from '../models/IncomeInfo';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/core/services/api.service';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class LoansService extends ApiService {
 
 	/**

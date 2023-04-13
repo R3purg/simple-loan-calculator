@@ -39,13 +39,16 @@ export class LocalizationService {
 	 */
 	public useLanguage(lang: string): Promise<void> {
 		this.translateService.setDefaultLang(lang);
-		return lastValueFrom(this.translateService
-			.use(lang)
-			.pipe(
-				catchError(() => {
-					throw new Error('LocalizationService.init failed');
-				})
-			));
+
+		return lastValueFrom(
+			this.translateService
+				.use(lang)
+				.pipe(
+					catchError(() => {
+						throw new Error('LocalizationService.initService failed');
+					})
+				)
+		);
 	}
 
 	/**

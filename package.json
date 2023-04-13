@@ -7,7 +7,13 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "mock:server": "nodemon server/server.js --ext js,ts,json,html"
+    "mock:server": "nodemon server/server.js --ext js,ts,json,html",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "build:prod": "ng build -c=prod",
+    "start:prod": "http-server ./dist -a localhost -p 4200",
+    "build-and-start:prod": "run-s build:prod start:prod",
+    "e2e": "start-server-and-test build-and-start:prod http://localhost:4200 cypress:run"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +30,7 @@
     "@angular/router": "^15.0.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
+    "cypress": "^12.9.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
