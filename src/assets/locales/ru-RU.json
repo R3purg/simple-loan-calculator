@@ -1,0 +1,22 @@
+{
+	"choice.NONE": "Никто",
+	"choice.SINGLE": "Одинокий",
+	"choice.MULTIPLE": "Несколько",
+	"choice.SINGLE_BORROWER": "Один заемщик",
+	"choice.MULTIPLE_BORROWERS": "Несколько заемщиков",
+	"title.calculators_personal": "Кредитный калькулятор",
+	"label.monthlyIncome": "Ежемесячный доход",
+	"label.requestedAmount": "Запрашиваемая сумма",
+	"label.loanTerm": "Срок кредита",
+	"label.children": "Дети",
+	"label.coapplicant": "Созаявитель",
+	"label.monthlyPayment": "Ежемесячно оплата",
+	"common.years": "годы",
+	"common.years_genitivus": "годы",
+	"common.months": "месяцы",
+	"error.required_field": "Поле '{{field}}' обязательно!",
+	"error.min_field": "Значение поля '{{field}}' меньше min!",
+	"error.max_field": "Значение поля '{{field}}' превышает max!",
+	"footer.by_email": "Свяжитесь со мной по электронной почте",
+	"footer.all_rights": "лицензия МТИ"
+}
