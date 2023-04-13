@@ -40,6 +40,8 @@ export class CalculatorPersonalComponent implements OnInit, OnDestroy {
 			distinctUntilChanged(),
 			debounceTime(500)
 		).subscribe(() => {
+			console.log('form errors: ', this.form.errors);
+			console.log('form errors: ', this.form.get('requestedAmount')?.errors);
 			this.calcPayment().subscribe();
 		});
 	}

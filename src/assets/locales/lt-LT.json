@@ -14,6 +14,9 @@
 	"common.years": "metai",
 	"common.years_genitivus": "metų",
 	"common.months": "mėnesiai",
+	"error.required_field": "Laukelis '{{field}}' yra privalomas!",
+	"error.min_field": "Laukelio '{{field}}' reikšmė per maža!",
+	"error.max_field": "Laukelio '{{field}}' reikšmė per didelė!",
 	"footer.by_email": "Galite susisiekti el. paštu",
 	"footer.all_rights": "MIT licenzija"
 }

@@ -4,7 +4,9 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, OperatorFunction, catchError, map, of, switchMap, tap } from 'rxjs';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class ApiService {
 
 	/**

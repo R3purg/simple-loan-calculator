@@ -14,6 +14,9 @@
 	"common.years": "years",
 	"common.years_genitivus": "years",
 	"common.months": "months",
+	"error.required_field": "Field '{{field}}' is required!",
+	"error.min_field": "Field '{{field}}' value is less than min!",
+	"error.max_field": "Field '{{field}}' value exceeds max!",
 	"footer.by_email": "Contact me by e-mail",
 	"footer.all_rights": "MIT license"
 }
